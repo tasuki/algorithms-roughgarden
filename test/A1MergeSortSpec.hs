@@ -1,7 +1,7 @@
-module MergeSortSpec (spec) where
+module A1MergeSortSpec (spec) where
 
 import Test.Hspec
-import MergeSort
+import A1MergeSort
 
 spec :: Spec
 spec = do

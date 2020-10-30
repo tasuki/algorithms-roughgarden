@@ -1,4 +1,4 @@
-module MergeSort
+module A1MergeSort
     ( merge, sort
     ) where
 
