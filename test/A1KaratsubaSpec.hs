@@ -1,4 +1,4 @@
-module A1KaratsubaSpec (spec) where
+module A1KaratsubaSpec where
 
 import Test.Hspec
 import A1Karatsuba
@@ -51,9 +51,3 @@ spec = do
             multiply "1234" "567" `shouldBe` "699678"
         it "multiply 12345 6789" $ do
             multiply "12345" "6789" `shouldBe` "83810205"
-
-        it "exercise" $ do
-            (multiply
-                "3141592653589793238462643383279502884197169399375105820974944592"
-                "2718281828459045235360287471352662497757247093699959574966967627"
-                `shouldBe` "8539734222673567065463550869546574495034888535765114961879601127067743044893204848617875072216249073013374895871952806582723184")

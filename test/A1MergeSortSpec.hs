@@ -1,4 +1,4 @@
-module A1MergeSortSpec (spec) where
+module A1MergeSortSpec where
 
 import Test.Hspec
 import A1MergeSort

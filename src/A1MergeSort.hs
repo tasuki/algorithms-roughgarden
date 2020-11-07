@@ -1,6 +1,4 @@
-module A1MergeSort
-    ( merge, sort
-    ) where
+module A1MergeSort where
 
 merge :: [Int] -> [Int] -> [Int]
 merge [] ys = ys
