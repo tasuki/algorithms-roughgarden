@@ -1,5 +1,7 @@
 module A2ClosestPair where
+
 import Debug.Trace(trace)
+import Data.List
 
 data Point = Point
     { x :: Int
@@ -10,6 +12,7 @@ data Pair = Pair Point Point Float deriving (Eq, Show)
 
 instance Ord Pair where
   compare (Pair _ _ d1) (Pair _ _ d2) = compare d1 d2
+
 
 distance :: Point -> Point -> Float
 distance p1 p2 =
@@ -27,3 +30,15 @@ findClosestBrute [] = error "empty list"
 findClosestBrute [_] = error "only one element"
 findClosestBrute [p1, p2] = pair p1 p2
 findClosestBrute (p : ps) = min (closestPoint p ps) (findClosestBrute ps)
+
+
+
+findClosestDivideConquer :: [Point] -> Maybe Pair
+findClosestDivideConquer [] = Nothing
+findClosestDivideConquer [_] = Nothing
+findClosestDivideConquer [p1, p2] = Just $ pair p1 p2
+findClosestDivideConquer ps =
+    let
+        byX = sortOn x ps
+        byY = sortOn y ps
+    in Just $ pair (Point 0 0) (Point 1 1)
