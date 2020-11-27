@@ -43,21 +43,15 @@ findClosestWithinSix ps | trace ("closest six: " ++ show ps) False = undefined
 findClosestWithinSix ps | length ps <= 1 = Nothing
 findClosestWithinSix [p1, p2] = Just $ pair p1 p2
 findClosestWithinSix (p : ps) =
-    let
-        closestFromFirst :: Pair
-        closestFromFirst = closestPoint p $ take 6 ps
-    in
-    case (findClosestWithinSix ps) of
-        Just tailMin -> Just $ min closestFromFirst tailMin
-        Nothing -> Just closestFromFirst
+    minMaybe [Just $ closestPoint p $ take 6 ps, findClosestWithinSix ps]
 
 
-minMaybe :: Ord a => [a] -> Maybe a
-minMaybe [] = Nothing
-minMaybe xs = Just $ minimum xs
+safeMin :: Ord a => [a] -> Maybe a
+safeMin [] = Nothing
+safeMin xs = Just $ minimum xs
 
-flatten :: [Maybe a] -> [a]
-flatten = Data.Maybe.mapMaybe id
+minMaybe :: Ord a => [Maybe a] -> Maybe a
+minMaybe = safeMin . Data.Maybe.mapMaybe id
 
 divideConquerVec :: V.Vector Point -> Maybe Pair
 divideConquerVec ps | trace ("div conq: " ++ show ps) False = undefined
@@ -73,11 +67,11 @@ divideConquerVec ps =
 
         -- find minimum distance for middle stripe
         stripeCenter = fromIntegral $ x $ ps V.! half
-        stripeWidth = fromMaybe maxSize $ fmap pairDist $ minMaybe $ flatten [minL, minR]
+        stripeWidth = fromMaybe maxSize $ fmap pairDist $ minMaybe [minL, minR]
         stripeFilter p = (floatX p < stripeCenter + stripeWidth) && (floatX p > stripeCenter - stripeWidth)
             where floatX = fromIntegral . x
         minStripe = findClosestWithinSix $ sortOn y $ filter stripeFilter $ V.toList ps
-    in minMaybe $ flatten [minL, minR, minStripe]
+    in minMaybe [minL, minR, minStripe]
 
 findClosestDivideConquer :: [Point] -> Maybe Pair
 findClosestDivideConquer ps =
