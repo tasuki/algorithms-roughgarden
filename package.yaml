@@ -6,6 +6,7 @@ author:              "tasuki"
 
 dependencies:
   - base >= 4.7 && < 5
+  - vector
 
 library:
   source-dirs: src
