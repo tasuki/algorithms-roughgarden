@@ -4,11 +4,9 @@ merge :: [Int] -> [Int] -> [Int]
 merge [] ys = ys
 merge xs [] = xs
 merge (x:xs) (y:ys) =
-    let
-        (next, tailx, taily) = if x < y
-            then (x, xs, y:ys)
-            else (y, x:xs, ys)
-    in next : (merge tailx taily)
+    if x < y
+    then x : (merge xs (y:ys))
+    else y : (merge (x:xs) ys)
 
 sort :: [Int] -> [Int]
 sort [] = []
